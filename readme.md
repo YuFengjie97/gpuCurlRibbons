@@ -23,4 +23,4 @@ m个分段点-->n*m个点
 for当前点继承前一个点信息
 ```
 
-
+> curlNoise函数来源于 [MisterPrada](https://github.com/MisterPrada/singularity/blob/51313b398583a84c9347470ce4b575e05739e302/src/Experience/TSL/curlNoise3d.js#L2)

@@ -19,6 +19,10 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
 
+
+    "noImplicitAny": false,     // 👈 允许隐式的 any 类型
+    // "allowJs": true,
+
     // 路径别名
     "paths": {
       "@/*": ["./src/*"],

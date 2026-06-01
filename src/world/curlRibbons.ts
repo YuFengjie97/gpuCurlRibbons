@@ -19,7 +19,7 @@ import * as THREE from "three/webgpu"
 import {scene, renderer, camera} from '@/world/scene'
 import { emitter } from "@/utils/emitter"
 import {curlNoise4d} from '@/utils/tsl/curlNoise4d'
-import {curlNoise3d} from '@/utils/tsl/curlNoise3d'
+// import {curlNoise3d} from '@/utils/tsl/curlNoise3d'
 
 export default function Ribbons(){
 
