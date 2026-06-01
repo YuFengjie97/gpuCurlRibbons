@@ -5,6 +5,8 @@
 
 > 借鉴了 [spite's codevember缎带 ](https://spite.github.io/codevember-2021/8/),不过他是用cpu更新头,而我是用GPU, 这也是我能跑4000条*200分段的原因.(给我点个赞)
 
+![1](./docs/1.png)
+
 ### 主要思路
 ```
 n条缎带-->n段带头位置-->维护n大小的缎带位置buffer
