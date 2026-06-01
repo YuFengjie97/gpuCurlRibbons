@@ -145,10 +145,11 @@ export default function Ribbons(){
       // 重置生命
       ribbonLifeBuffer.element(ribbonIdx).assign(fract(life))
 
+      // 重置位置
       const pos = vec3(
-                    hash(float(ribbonIdx.mul(13.25).add(12.45))).sub(.5).mul(edge),
-                    hash(float(ribbonIdx.mul(13.25).add(41.34))).sub(.5).mul(edge),
-                    hash(float(ribbonIdx.mul(13.25).add(67.21))).sub(.5).mul(edge)
+                    hash(float(ribbonIdx.mul(13.25).add(12.45).add(time))).sub(.5).mul(edge),
+                    hash(float(ribbonIdx.mul(13.25).add(41.34).add(time))).sub(.5).mul(edge),
+                    hash(float(ribbonIdx.mul(13.25).add(67.21).add(time))).sub(.5).mul(edge)
                   )
       ribbonPosBuffer.element(ribbonIdx).assign(pos)
       
