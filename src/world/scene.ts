@@ -22,8 +22,8 @@ export async function initScene() {
   const dpr = Math.max(1, Math.min(2, window.devicePixelRatio))
   renderer.setPixelRatio(dpr)
   renderer.setSize(window.innerWidth, window.innerHeight)
-  renderer.toneMapping = THREE.ACESFilmicToneMapping
-  // renderer.toneMapping=THREE.NeutralToneMapping
+  // renderer.toneMapping = THREE.ACESFilmicToneMapping
+  renderer.toneMapping=THREE.NeutralToneMapping
   renderer.toneMappingExposure = 1
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
@@ -57,8 +57,8 @@ export async function initScene() {
       elapsed: timer.getElapsed()
     })
 
-    // renderer.render(scene, camera)
-    renderPipeline.render()
+    renderer.render(scene, camera)
+    // renderPipeline.render()
   }
 
   // 使用setAnimationLoop会自动在第一帧init webgpuRender,如果是window.requestAnimationFrame() 要手动init
