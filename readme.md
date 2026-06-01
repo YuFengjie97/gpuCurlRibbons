@@ -1,17 +1,26 @@
-# threejs-vite-template
+# GPU CURL Ribbons
+- 4000缎带数
+- 每条缎带200分段数
+- 我的笔记本GTX1650可以60帧运行, 或许你的配置允许跑的更多
 
-> A native Three.js template built with Vite and TypeScript
+> 借鉴了 [spite's codevember缎带 ](https://spite.github.io/codevember-2021/8/),不过他是用cpu更新头,而我是用GPU, 这也是我能跑4000条*200分段的原因.(给我点个赞)
 
+### 主要思路
 ```
-pnpm run dev
+n条缎带-->n段带头位置-->维护n大小的缎带位置buffer
+m个分段点-->n*m个点
+计算节点更新:头位置
+因为计算节点是GPU并行计算,所以不能搞以每个控制点为单位计算(因为这样当前点无法拿到前一个点,他们有冲突),而是选择以每条缎带为单位计算
+然后for循环缎带的控制点,让当前点继承前一个点的信息,而头部(第一个控制点)的信息由curlNoise函数得到
+
+为什么我不说位置而是信息.因为我顺便计算了切线(curl速度方向),法向(缎带面朝向),副切线(缎带宽度挤出方向)
+
+
+初始化随机位置,这里我放到了CPU来做,起始也可以放到计算节点,在第一帧初始化,这种重置的操作还能和后面缎带死亡重置位置的逻辑复用(但是我没这么做,因为我写顺手了)
+
+
+缎带位置==缎带头(第一个控制点)位置==位置+速度=curlNoise(缎带位置)
+for当前点继承前一个点信息
 ```
 
-- support githupPage depoly
-set `.env.production` `VITE_BASE_URL` to your repo name
-*THEN*
-```
-pnpm run depoly
-```
 
-- use three/webgpu by default
-- use `tsl-uniform-ui-vite-plugin` auto generate uniform value pane
