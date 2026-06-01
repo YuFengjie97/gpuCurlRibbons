@@ -1,3 +1,6 @@
+//@no-gui-file
+
+
 import {renderer, scene, camera} from '@/world/scene'
 import * as THREE from 'three/webgpu'
 import {pass, uniform} from 'three/tsl'
