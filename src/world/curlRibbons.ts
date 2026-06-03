@@ -1,3 +1,6 @@
+//@uniforms-include-only
+
+
 import { abs, rotate, attribute, cos, cross, fract, dot, float, floor, Fn, 
   fwidth, hash, instancedArray, instanceIndex, max, metalness, min, mix, mod, mx_noise_float, 
   mx_noise_vec3, normalLocal, normalView, positionLocal, pow, select, sin, 
@@ -28,18 +31,25 @@ export default function Ribbons(){
   const ribbonPointsNum = segNum + 1  // 缎带控制点,不是顶点数
   const geo = new THREE.PlaneGeometry(.0001,.0001, segNum, 1)
 
+  // @gui
   // @range: { min: 0.01, max: 1, step: 0.01 }
-  const ribbonWidth = uniform(.2)
+  const ribbonWidth = uniform(.6)
+  // @gui
   // @range: { min: 0, max: 50, step: 0.1 }
   const speed = uniform(10)
+  // @gui
   // @range: { min: 0.01, max: 0.1, step: 0.01 }
   const curlScale = uniform(.03)
+  // @gui
   // @range: { min: 0, max: .2, step: 0.01 }
   const curlSpeed = uniform(0)
+  // @gui
   // @range: { min: 0, max: 5, step: 0.01 }
   const lifeSpeed = uniform(.2)
+  // @gui
   // @range: { min: 10, max: 40, step: 0.01 }
   const edge = uniform(40)
+  // @gui
   // @range: { min: 0, max: 10, step: 0.01 }
   const colSeed = uniform(new THREE.Vector3(3,2,1))
 
@@ -79,10 +89,10 @@ export default function Ribbons(){
 
   const mat = new THREE.MeshBasicNodeMaterial()
   mat.side = THREE.DoubleSide
-  mat.transparent = true
+  // mat.transparent = true
   // mat.blending = THREE.AdditiveBlending
   // mat.roughness = .4
-  mat.depthWrite = false
+  // mat.depthWrite = false
 
   const vCol = varying(vec3(0))
   const vFade = varying(float(1))
@@ -98,13 +108,15 @@ export default function Ribbons(){
 
     const pos = posBuffer.element(bufferIdx).toVar()
     const biTan = biTanBuffer.element(bufferIdx).toVar()
-    const p = pos.add(biTan.mul(side).mul(ribbonWidth))
 
     const life = ribbonLifeBuffer.element(ribbonIdx).toVar()
     vFade.assign(
-      smoothstep(0, .1, life)
-      .mul(smoothstep(1, .9, life))
+      smoothstep(0, .3, life)
+      .mul(smoothstep(1, .7, life))
     )
+
+    const p = pos.add(biTan.mul(side).mul(ribbonWidth).mul(vFade))
+
 
 
     vCol.assign(
@@ -128,7 +140,7 @@ export default function Ribbons(){
   })()
 
   mat.colorNode = Fn(() => {
-    return vec4(vCol, vFade)
+    return vec4(vCol, 1)
   })()
 
 
